@@ -1,13 +1,19 @@
 <template>
   <div class ="container">
     <h1>Son İletiler</h1>
+    <div class="create-post">
+      <label for="create-post">İletinizi Yazın:</label>
+      <input type="text" id="create-post" v-model="text" placeholder="İLetinizi yazın...">
+      <button v-on:click="Kaydet">Kaydet</button>
+    </div>
     <hr>
     <p class="error" v-if="error">{{ error }}</p>
     <div>
-      <div class="post" v-for="ileti in iletiler" v-bind:key= "ileti._id">
+      <div class="post" v-for="ileti in iletiler" v-bind:key= "ileti._id" v-on:dblclick="Sil(ileti._id)">
         {{ ileti.createdAt.getDate()  }} /
         {{ ileti.createdAt.getMonth()  }} /
         {{ ileti.createdAt.getFullYear() }} 
+        <p class="id">{{ ileti.id }} </p>
         <p class="text">{{ ileti.text }}</p>
       </div>    
     </div>
@@ -31,6 +37,16 @@ export default {
       this.iletiler = await iletiService.getIletiler();
     } catch (err){
       this.error = err.message;
+    }
+  },
+  methods: {
+    async Kaydet(){
+      await iletiService.insertIleti(this.text);
+      this.iletiler = await iletiService.getIletiler();
+    },
+    async Sil(id) {
+      await iletiService.deleteIleti(id);
+      this.iletiler = await iletiService.getIletiler();
     }
   }
 }

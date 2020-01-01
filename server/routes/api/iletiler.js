@@ -8,6 +8,7 @@ router.post('/', async (req, res) => {
     const iletiler = await loadIletilerCollection();
     await iletiler.insertOne({
         text: req.body.text,
+        createdAt: new Date()
     });
     
     res.status(201).send();
@@ -17,7 +18,6 @@ router.delete('/:id' , async (req, res) => {
     const iletiler = await loadIletilerCollection();
     await iletiler.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
     res.status(200).send();
-
 });
 
 router.put('/:id', async (req, res) => {
