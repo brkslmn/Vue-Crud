@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
 async function loadIletilerCollection(){
     const client = await mongodb.MongoClient.connect
     (
-        'mongodb+srv://brkslmn:brkslmn66@cluster0-vdbgv.mongodb.net/test?retryWrites=true&w=majority',
+        'mongodb+srv://brkslmn:yourpassword@cluster0-vdbgv.mongodb.net/test?retryWrites=true&w=majority',
         {
             useNewUrlParser: true,
             useUnifiedTopology: true
